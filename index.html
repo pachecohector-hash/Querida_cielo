@@ -100,7 +100,7 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.06);
     }
 
-    /* FUENTE DE CARTA MANUSCRITA MUCHO MÁS ENTENDIBLE Y FÁCIL DE LEER */
+    /* FUENTE DE CARTA MANUSCRITA */
     .card h3 {
       font-family: 'Caveat', cursive;
       font-size: 2.5em;
@@ -149,6 +149,31 @@
       background-color: #666;
     }
 
+    /* BOTÓN FLOTANTE DE MÚSICA */
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: #ffffff;
+      border: 1.5px solid #ff4f81;
+      border-radius: 30px;
+      padding: 8px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #ff4f81;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+    .music-control:hover {
+      transform: scale(1.05);
+      background: #fff5f7;
+    }
+
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.98);}
       to {opacity: 1; transform: scale(1);}
@@ -163,7 +188,28 @@
 </head>
 <body>
 
-  <div class="screen active" id="screen1">
+  <!-- ELEMENTO DE AUDIO DE FONDO -->
+  <audio id="musicaFondo" loop preload="auto">
+    <source src="musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta el reproductor de audio.
+  </audio>
+
+  <!-- BOTÓN CONTROL DE MÚSICA -->
+  <button class="music-control" onclick="toggleMusica()">
+    🎵 <span id="textoMusica">Música: OFF</span>
+  </button>
+
+  <!-- PANTALLA INICIAL: SUGERENCIA DE AURICULARES -->
+  <div class="screen active" id="screen0">
+    <h2>Antes de empezar... 🎧</h2>
+    <div class="interactive-card" onclick="iniciarExperiencia()">
+      <span class="icon-wrapper">🎧</span>
+      <div>Para una mejor experiencia, te recomiendo ponerte audífonos</div>
+      <span class="click-hint">Empezar ✨</span>
+    </div>
+  </div>
+
+  <div class="screen" id="screen1">
     <h2>Hola, te llegó un correo 📩</h2>
     <div class="interactive-card" onclick="nextScreen(2)">
       <span class="icon-wrapper">📬</span>
@@ -199,7 +245,6 @@
     </div>
   </div>
 
-  
   <!-- PÁGINA 1 -->
   <div class="screen" id="screen5">
     <div class="progress-bar">Página 1 de 7</div>
@@ -231,7 +276,7 @@
   <div class="screen" id="screen7">
     <div class="progress-bar">Página 3 de 7</div>
     <div class="card">
-      <p>Por eso también te invitaba tanto a por lo menos vernos un ratito y hablar. Por comentarios tuyos sentí un poco que tú también te estabas encariñando conmigo, pero de la nada me cambiabas de tema o me decías a cada rato: <em>"AH PERO NO IMPORTA SI SOLO SOMOS AMIGOS"</em>. Se me hace muy chistoso que lo repetías y repetías, pero bueno, sigamos.</p>
+      <p>Por eso también te invitaba tanto a por lo menos vernos un ratito y hablar. Por comentarios tuyos sentí un poco que tú también te estás encariñando conmigo, pero de la nada me cambiabas de tema o me decías a cada rato: <em>"AH PERO NO IMPORTA SI SOLO SOMOS AMIGOS"</em>. Se me hace muy chistoso que lo repetías y repetías, pero bueno, sigamos.</p>
       <p>Siento que me empezaste a gustar. Antes del martes quería seguir invitándote a comer un helado o hablar antes de que vayas a tus clases, solo que después noté ese distanciamiento y la verdad no quiero que sea así. Hoy en específico me puse a cranear todo esto, pero también sé que tienes tu liguesito. Te aclaro que no es nada malo para mí, no me siento triste ni nada, sé que está ahí y bueno, creo que es lo que me frena un poco en todo esto.</p>
     </div>
     <div class="btn-container">
@@ -272,7 +317,7 @@
     <div class="progress-bar">Página 6 de 7</div>
     <div class="card">
       <p>Espero podamos arreglar este tema, la verdad no quisiera que esto se acabe. Y de todos modos, si todo falla, pues no importa; al final pude verte, hablarte, pasarla bien y me guardaré eso con mucho cariño.</p>
-      <p>Si decides seguir con tu liguesillo está bien también, estás en todo tu derecho. Si prefieres seguir en esa línea de amigos lo acepto totalmente y poco a poco me deshare de estos pensamientos. Y si al final podemos arreglar y ver qué pasa, pues estaria genial, cielo.</p>
+      <p>Si decides seguir con tu liguesillo está bien también, estás en todo tu derecho. Si prefieres seguir en esa línea de amigos lo acepto totalmente y poco a poco me desharé de estos pensamientos. Y si al final podemos arreglar y ver qué pasa, pues estaría genial, cielo.</p>
       <p>No quiero obligarte a nada ni prometerte nada, porque las promesas se rompen. Si en serio crees en lo que te digo quiero demostrártelo con hechos, no solo que se quede en escritos. Cambié para bien, no para volver a lo que fuimos antes; lo que antes tuvimos ya murió.</p>
     </div>
     <div class="btn-container">
@@ -286,18 +331,43 @@
     <div class="progress-bar">Página 7 de 7</div>
     <div class="card">
       <p>Pero si esto sigue, quién sabe si algo bonito pueda nacer sin mirar atrás, como si tú y yo fuéramos otras personas y fuera un nuevo inicio. Se me hace muy bonito.</p>
-      <p>Ya creo que es todo, cielo. Sea cual sea el escenario, te agradezco tu compañía. Eres una chica increíble, el haber dejado todo atrás me hizo ver que eres una chica que vale oro, muy chevere y linda.</p>
+      <p>Ya creo que es todo, cielo. Sea cual sea el escenario, te agradezco tu compañía. Eres una chica increíble, el haber dejado todo atrás me hizo ver que eres una chica que vale oro, muy chévere y linda.</p>
       <p>Veremos qué pasa jajaja...</p>
       <p style="margin-top: 25px;">Con mucho cariño,</p>
       <p><strong>Hector 💌</strong></p>
     </div>
     <div class="btn-container">
       <button class="nav-btn secondary" onclick="nextScreen(10)">⬅️ Anterior</button>
-      <button class="nav-btn" onclick="nextScreen(1)">🔄 Inicio</button>
+      <button class="nav-btn" onclick="nextScreen(0)">🔄 Inicio</button>
     </div>
   </div>
 
   <script>
+    const audio = document.getElementById('musicaFondo');
+    const textoMusica = document.getElementById('textoMusica');
+
+    function iniciarExperiencia() {
+      // Activa la música al dar clic en "Empezar ✨"
+      audio.play().then(() => {
+        textoMusica.innerText = "Música: ON";
+      }).catch(err => {
+        console.log("Error al reproducir audio:", err);
+      });
+
+      // Avanza a la siguiente pantalla
+      nextScreen(1);
+    }
+
+    function toggleMusica() {
+      if (audio.paused) {
+        audio.play();
+        textoMusica.innerText = "Música: ON";
+      } else {
+        audio.pause();
+        textoMusica.innerText = "Música: OFF";
+      }
+    }
+
     function nextScreen(num) {
       const current = document.querySelector(".screen.active");
       if (current) current.classList.remove("active");
