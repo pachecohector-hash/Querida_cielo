@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Querida Cielo...</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px 0;
+      text-align: center;
+      color: #333;
+      box-sizing: border-box;
+    }
+    h2 {
+      margin-bottom: 25px;
+      font-weight: 600;
+      color: #444;
+    }
+    .screen {
+      display: none;
+      animation: fadeIn 0.8s ease;
+      width: 90%;
+      max-width: 750px;
+    }
+    .active {
+      display: block;
+    }
+    
+    /* TARJETAS INTERACTIVAS DE PORTADA */
+    .interactive-card {
+      background: #ffffff;
+      border: 2px solid #ffe1e9;
+      border-radius: 20px;
+      padding: 40px 30px;
+      margin: 0 auto 20px auto;
+      max-width: 380px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(255, 79, 129, 0.12);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .interactive-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(255, 79, 129, 0.22);
+      border-color: #ff4f81;
+    }
+    .icon-wrapper {
+      font-size: 80px;
+      margin-bottom: 15px;
+      display: block;
+      animation: pulse 2s infinite ease-in-out;
+    }
+    .click-hint {
+      display: inline-block;
+      margin-top: 15px;
+      background-color: #ff4f81;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-size: 0.95em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 10px rgba(255, 79, 129, 0.3);
+    }
+
+    .progress-bar {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    /* ESTILOS DE LA HOJA DE CARTA */
+    .card {
+      background: repeating-linear-gradient(
+        white,
+        white 30px,
+        #e3e3e3 31px
+      );
+      border-radius: 6px;
+      padding: 35px 45px;
+      border: 1px solid #dcdcdc;
+      width: 100%;
+      min-height: 380px;
+      text-align: left;
+      margin: 0 auto;
+      box-sizing: border-box;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    /* FUENTE DE CARTA MANUSCRITA MUCHO MÁS ENTENDIBLE Y FÁCIL DE LEER */
+    .card h3 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.5em;
+      font-weight: 700;
+      text-align: left;
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #2b2b2b;
+      letter-spacing: 0.5px;
+    }
+    .card p {
+      font-family: 'Caveat', cursive;
+      font-size: 1.85em;
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: left;
+      color: #2b2b2b;
+      margin: 15px 0;
+      letter-spacing: 0.4px;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
+      gap: 10px;
+    }
+    .nav-btn {
+      padding: 12px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+      background-color: #ff4f81;
+      color: white;
+      font-weight: 600;
+    }
+    .nav-btn:hover {
+      background-color: #ff2a66;
+    }
+    .nav-btn.secondary {
+      background-color: #888;
+    }
+    .nav-btn.secondary:hover {
+      background-color: #666;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.98);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="screen active" id="screen1">
+    <h2>Hola, te llegó un correo 📩</h2>
+    <div class="interactive-card" onclick="nextScreen(2)">
+      <span class="icon-wrapper">📬</span>
+      <div>Tienes un mensaje esperándote</div>
+      <span class="click-hint">Toca para abrir ✨</span>
+    </div>
+  </div>
+
+  <div class="screen" id="screen2">
+    <h2>Una cartita para ti 📝</h2>
+    <div class="interactive-card" onclick="nextScreen(3)">
+      <span class="icon-wrapper">💌</span>
+      <div>Alguien se tomó el tiempo de escribirte esto...</div>
+      <span class="click-hint">Continuar ➡️</span>
+    </div>
+  </div>
+
+  <div class="screen" id="screen3">
+    <h2>¡Ábrelo! 🎁</h2>
+    <div class="interactive-card" onclick="nextScreen(4)">
+      <span class="icon-wrapper">✉️</span>
+      <div>Haz clic en el sobre para romper el sello</div>
+      <span class="click-hint">Abrir sobre 🔓</span>
+    </div>
+  </div>
+
+  <div class="screen" id="screen4">
+    <h2>¿Qué dirá? 🤔</h2>
+    <div class="interactive-card" onclick="nextScreen(5)">
+      <span class="icon-wrapper">📜</span>
+      <div>La carta está lista para leer</div>
+      <span class="click-hint">Empezar a leer 💖</span>
+    </div>
+  </div>
+
+  
+  <!-- PÁGINA 1 -->
+  <div class="screen" id="screen5">
+    <div class="progress-bar">Página 1 de 7</div>
+    <div class="card">
+      <h3>Holaa cielo,</h3>
+      <p>Te seré totalmente sincero: este tiempo que pudimos congeniar pude conocer y visualizar otra faceta tuya. Nunca había podido disfrutar tu compañía como un amigo, eres muy genial. El mismo hecho de que eres de las pocas personas con las que puedo congeniar como soy, entiendes mis chistes, me entiendes... creo que eso es muy especial para mí.</p>
+      <p>No sé si yo estoy loco, pero siento que desde el día martes sí como que nos alejamos un poco. Obviamente sé que tú tienes tus actividades, tus clases y mil cosas, así que creo que es totalmente normal.</p>
+    </div>
+    <div class="btn-container" style="justify-content: flex-end;">
+      <button class="nav-btn" onclick="nextScreen(6)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2 -->
+  <div class="screen" id="screen6">
+    <div class="progress-bar">Página 2 de 7</div>
+    <div class="card">
+      <p>Aún así, es como si lo sintiera, por eso estoy haciendo todas estas barbaridades jajaja. Quiero saber si me estoy equivocando. Yo, cielo, con el pasar de las semanas fui acercándome más a ti y ese sentimiento de cariño e importancia también fue creciendo. Como te mencionaba muchas veces, siento que yo a ti no te conozco de nada, que fuiste una total desconocida y ahora estamos empezando a congeniar.</p>
+      <p>Desde que te regalé tu vape, que fue la vez que nos vimos después de tiempo, me di cuenta de que cambiaste mucho. Te ves súper linda. Pudimos hablar y todo súper genial, y me puse a pensar que, por el hecho de haber superado todo, no podía negarte que estás hermosa. Y pues sí, me empezaste a gustar.</p>
+      <p>Ese fue el motivo principal por el cual te quise comprar las flores para el 21. No pude decírtelo bien porque ese día estabas súper ocupada al parecer, y encima salí con mis amigos.</p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(5)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(7)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 3 -->
+  <div class="screen" id="screen7">
+    <div class="progress-bar">Página 3 de 7</div>
+    <div class="card">
+      <p>Por eso también te invitaba tanto a por lo menos vernos un ratito y hablar. Por comentarios tuyos sentí un poco que tú también te estabas encariñando conmigo, pero de la nada me cambiabas de tema o me decías a cada rato: <em>"AH PERO NO IMPORTA SI SOLO SOMOS AMIGOS"</em>. Se me hace muy chistoso que lo repetías y repetías, pero bueno, sigamos.</p>
+      <p>Siento que me empezaste a gustar. Antes del martes quería seguir invitándote a comer un helado o hablar antes de que vayas a tus clases, solo que después noté ese distanciamiento y la verdad no quiero que sea así. Hoy en específico me puse a cranear todo esto, pero también sé que tienes tu liguesito. Te aclaro que no es nada malo para mí, no me siento triste ni nada, sé que está ahí y bueno, creo que es lo que me frena un poco en todo esto.</p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(6)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(8)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 4 -->
+  <div class="screen" id="screen8">
+    <div class="progress-bar">Página 4 de 7</div>
+    <div class="card">
+      <p>Solo quiero ver hasta dónde puedo llegar. Me gustas y quiero saber si podríamos seguir en este contexto, si llegara a ser cierta mi "teoría" JAJAJA (que lo dudo, pero si es así, genial).</p>
+      <p>Lo único que puedo decirte es que cambié mucho en distintos aspectos, pero quiero que con estas cosas veas que me sigo prestando a los detalles. Por más que cambie, esto forma parte de mí, me gusta hacer este tipo de cosas.</p>
+      <p>Sé que fui un estúpido, hice cosas muy dudosas y sé que a ti te parece hipócrita de mi parte haber hecho cosas que hace años criticaba tanto. Por eso ahora ya no escupo al cielo, porque no sabemos cuándo nos cae. En su momento no pensé bien las cosas, pero en serio, cielo, quiero que entiendas que eso no me define. Me arrepiento un montón de todo eso, pero esos errores me hicieron darme cuenta de que tenía que corregir y cambiar. Espero en serio que me puedas disculpar.</p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(7)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(9)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 5 -->
+  <div class="screen" id="screen9">
+    <div class="progress-bar">Página 5 de 7</div>
+    <div class="card">
+      <p>Yo, cielo, estoy empezando a quererte y no me fijo en las cosas que pasaron en el ayer, por eso estoy más tranquilo. Sé que tu exnovio fue muy importante y que diste todo por él, que viviste un montón de experiencias con él y lo acepto, no me siento para nada mal con la idea.</p>
+      <p>Sé que es complicado que me creas, pero lo acepté hace un montón de tiempo y dejé de torturarme con eso. Ahora solo veo lo que pasa frente a mis ojos, ya no vivo en el pasado. Ya no me pesa y eso hace que el cariño que desarrollé por ti se sienta bonito, cálido, sin cargas y sin reproches. Solo me siento bien con tu compañía.</p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(8)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(10)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 6 -->
+  <div class="screen" id="screen10">
+    <div class="progress-bar">Página 6 de 7</div>
+    <div class="card">
+      <p>Espero podamos arreglar este tema, la verdad no quisiera que esto se acabe. Y de todos modos, si todo falla, pues no importa; al final pude verte, hablarte, pasarla bien y me guardaré eso con mucho cariño.</p>
+      <p>Si decides seguir con tu liguesillo está bien también, estás en todo tu derecho. Si prefieres seguir en esa línea de amigos lo acepto totalmente y poco a poco me deshare de estos pensamientos. Y si al final podemos arreglar y ver qué pasa, pues estaria genial, cielo.</p>
+      <p>No quiero obligarte a nada ni prometerte nada, porque las promesas se rompen. Si en serio crees en lo que te digo quiero demostrártelo con hechos, no solo que se quede en escritos. Cambié para bien, no para volver a lo que fuimos antes; lo que antes tuvimos ya murió.</p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(9)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(11)">Siguiente ➡️</button>
+    </div>
+  </div>
+
+  <!-- PÁGINA 7 -->
+  <div class="screen" id="screen11">
+    <div class="progress-bar">Página 7 de 7</div>
+    <div class="card">
+      <p>Pero si esto sigue, quién sabe si algo bonito pueda nacer sin mirar atrás, como si tú y yo fuéramos otras personas y fuera un nuevo inicio. Se me hace muy bonito.</p>
+      <p>Ya creo que es todo, cielo. Sea cual sea el escenario, te agradezco tu compañía. Eres una chica increíble, el haber dejado todo atrás me hizo ver que eres una chica que vale oro, muy chevere y linda.</p>
+      <p>Veremos qué pasa jajaja...</p>
+      <p style="margin-top: 25px;">Con mucho cariño,</p>
+      <p><strong>Hector 💌</strong></p>
+    </div>
+    <div class="btn-container">
+      <button class="nav-btn secondary" onclick="nextScreen(10)">⬅️ Anterior</button>
+      <button class="nav-btn" onclick="nextScreen(1)">🔄 Inicio</button>
+    </div>
+  </div>
+
+  <script>
+    function nextScreen(num) {
+      const current = document.querySelector(".screen.active");
+      if (current) current.classList.remove("active");
+      document.getElementById("screen" + num).classList.add("active");
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
