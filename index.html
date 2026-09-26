@@ -10,9 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: "Poppins", sans-serif;
-      background-color: #f7f7f7;
+      background: linear-gradient(135deg, #0f0c20 0%, #1a162b 50%, #2a1b38 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,39 +22,72 @@
       margin: 0;
       padding: 20px 0;
       text-align: center;
-      color: #333;
-      box-sizing: border-box;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
     }
+
+    /* ANIMACIÓN MEJORADA DE PÉTALOS Y CORAZONES FLOTANTES */
+    .petal {
+      position: fixed;
+      top: -30px;
+      font-size: 20px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.8;
+      animation: fallAndSway linear infinite;
+    }
+
+    @keyframes fallAndSway {
+      0% {
+        transform: translateY(-10px) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      15% { opacity: 0.9; }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(35px);
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg) translateX(-20px);
+        opacity: 0;
+      }
+    }
+
     h2 {
       margin-bottom: 25px;
       font-weight: 600;
-      color: #444;
+      color: #ffe6f0;
+      text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
+      position: relative;
+      z-index: 2;
     }
+
     .screen {
       display: none;
       animation: fadeIn 0.8s ease;
       width: 90%;
       max-width: 750px;
+      position: relative;
+      z-index: 2;
     }
-    .active {
-      display: block;
-    }
+    .active { display: block; }
     
-    /* TARJETAS INTERACTIVAS DE PORTADA */
+    /* TARJETAS INTERACTIVAS INICIALES */
     .interactive-card {
-      background: #ffffff;
-      border: 2px solid #ffe1e9;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #ffb6c1;
       border-radius: 20px;
       padding: 40px 30px;
       margin: 0 auto 20px auto;
       max-width: 380px;
       cursor: pointer;
-      box-shadow: 0 10px 25px rgba(255, 79, 129, 0.12);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: #333;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
     }
     .interactive-card:hover {
       transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 15px 30px rgba(255, 79, 129, 0.22);
+      box-shadow: 0 15px 35px rgba(255, 79, 129, 0.3);
       border-color: #ff4f81;
     }
     .icon-wrapper {
@@ -71,55 +105,76 @@
       border-radius: 25px;
       font-size: 0.95em;
       font-weight: 600;
-      letter-spacing: 0.5px;
       box-shadow: 0 4px 10px rgba(255, 79, 129, 0.3);
     }
 
     .progress-bar {
       font-size: 0.9em;
-      color: #777;
+      color: #ffccd5;
       margin-bottom: 15px;
       font-weight: 600;
     }
 
-    /* ESTILOS DE LA HOJA DE CARTA */
+    /* ESTILOS HOJA VINTAGE DE CARTA */
     .card {
-      background: repeating-linear-gradient(
-        white,
-        white 30px,
-        #e3e3e3 31px
+      background: #fdfbf7;
+      background-image: repeating-linear-gradient(
+        #fdfbf7,
+        #fdfbf7 30px,
+        #e5dcd3 31px
       );
-      border-radius: 6px;
-      padding: 35px 45px;
-      border: 1px solid #dcdcdc;
+      border-radius: 8px;
+      padding: 40px 45px;
+      border: 1px solid #e0d0c0;
       width: 100%;
       min-height: 380px;
       text-align: left;
       margin: 0 auto;
-      box-sizing: border-box;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      color: #2c2523;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
     }
 
-    /* FUENTE DE CARTA MANUSCRITA */
     .card h3 {
       font-family: 'Caveat', cursive;
-      font-size: 2.5em;
+      font-size: 2.6em;
       font-weight: 700;
-      text-align: left;
       margin-top: 0;
       margin-bottom: 15px;
-      color: #2b2b2b;
-      letter-spacing: 0.5px;
+      color: #1f1815;
     }
     .card p {
       font-family: 'Caveat', cursive;
-      font-size: 1.85em;
+      font-size: 1.9em;
       font-weight: 600;
       line-height: 1.5;
-      text-align: left;
-      color: #2b2b2b;
+      color: #2c2523;
       margin: 15px 0;
-      letter-spacing: 0.4px;
+    }
+
+    /* FIRMA POLAROID FINAL */
+    .polaroid-signature {
+      background: #ffffff;
+      padding: 20px 20px 15px 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transform: rotate(-2deg);
+      margin-top: 25px;
+      display: inline-block;
+      width: 100%;
+      max-width: 290px;
+      text-align: center;
+    }
+    .polaroid-signature p {
+      margin: 0 0 10px 0;
+      text-align: center;
+      font-size: 2em;
+      color: #1f1815;
+    }
+    .signature-img {
+      max-width: 180px;
+      height: auto;
+      margin-top: 5px;
     }
 
     .btn-container {
@@ -132,53 +187,45 @@
       padding: 12px 25px;
       font-size: 1em;
       border: none;
-      border-radius: 6px;
+      border-radius: 20px;
       cursor: pointer;
       transition: 0.3s;
       background-color: #ff4f81;
       color: white;
       font-weight: 600;
+      box-shadow: 0 4px 15px rgba(255, 79, 129, 0.3);
     }
     .nav-btn:hover {
       background-color: #ff2a66;
+      transform: translateY(-2deg);
     }
     .nav-btn.secondary {
-      background-color: #888;
-    }
-    .nav-btn.secondary:hover {
-      background-color: #666;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,0.3);
     }
 
-    /* BOTÓN FLOTANTE DE MÚSICA */
     .music-control {
       position: fixed;
       bottom: 20px;
       right: 20px;
       z-index: 1000;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.9);
       border: 1.5px solid #ff4f81;
       border-radius: 30px;
       padding: 8px 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       font-size: 0.85em;
       font-weight: 600;
       color: #ff4f81;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.3s ease;
-    }
-    .music-control:hover {
-      transform: scale(1.05);
-      background: #fff5f7;
     }
 
     @keyframes fadeIn {
       from {opacity: 0; transform: scale(0.98);}
       to {opacity: 1; transform: scale(1);}
     }
-
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.08); }
@@ -188,23 +235,20 @@
 </head>
 <body>
 
-  <!-- ELEMENTO DE AUDIO DE FONDO -->
   <audio id="musicaFondo" loop preload="auto">
     <source src="musica.mp3" type="audio/mpeg">
-    Tu navegador no soporta el reproductor de audio.
   </audio>
 
-  <!-- BOTÓN CONTROL DE MÚSICA -->
   <button class="music-control" onclick="toggleMusica()">
     🎵 <span id="textoMusica">Música: OFF</span>
   </button>
 
-  <!-- PANTALLA INICIAL: SUGERENCIA DE AURICULARES -->
+  <!-- PANTALLA INICIAL -->
   <div class="screen active" id="screen0">
     <h2>Antes de empezar... 🎧</h2>
     <div class="interactive-card" onclick="iniciarExperiencia()">
       <span class="icon-wrapper">🎧</span>
-      <div>Para una mejor experiencia, te recomiendo ponerte audífonos</div>
+      <div>Para una mejor experiencia, ponte audífonos antes de abrirla</div>
       <span class="click-hint">Empezar ✨</span>
     </div>
   </div>
@@ -329,16 +373,25 @@
   <!-- PÁGINA 7 -->
   <div class="screen" id="screen11">
     <div class="progress-bar">Página 7 de 7</div>
-    <div class="card">
-      <p>Pero si esto sigue, quién sabe si algo bonito pueda nacer sin mirar atrás, como si tú y yo fuéramos otras personas y fuera un nuevo inicio. Se me hace muy bonito.</p>
+    <div class="card" style="text-align: center;">
+      <p>Pero si esto sigue, quién sabe si algo bonito pueda nacer sin mirar atrás, como si tú y yo fuera otra historia y fuera un nuevo inicio. Se me hace muy bonito.</p>
       <p>Ya creo que es todo, cielo. Sea cual sea el escenario, te agradezco tu compañía. Eres una chica increíble, el haber dejado todo atrás me hizo ver que eres una chica que vale oro, muy chévere y linda.</p>
       <p>Veremos qué pasa jajaja...</p>
-      <p style="margin-top: 25px;">Con mucho cariño,</p>
-      <p><strong>Hector 💌</strong></p>
+
+      <p style="font-size: 1.5em; font-style: italic; color: #555; margin-top: 20px;">
+       Si llegaste hasta aquí espero que te haya gustado la música que elegí para ti, cuando la escucho automaticamente vienes a mi cabeza...
+      </p>
+      
+      <div class="polaroid-signature">
+        <p>Con mucho cariño,</p>
+		<p>Hector Pacheco</p>
+        <img src="firma.png" alt="Firma" class="signature-img">
+      </div>
     </div>
+
     <div class="btn-container">
       <button class="nav-btn secondary" onclick="nextScreen(10)">⬅️ Anterior</button>
-      <button class="nav-btn" onclick="nextScreen(0)">🔄 Inicio</button>
+      <button class="nav-btn" onclick="nextScreen(0)">🔄 Volver al inicio</button>
     </div>
   </div>
 
@@ -346,15 +399,28 @@
     const audio = document.getElementById('musicaFondo');
     const textoMusica = document.getElementById('textoMusica');
 
+    // Lluvia fluida de pétalos de rosa y destellos
+    function crearLluviaPetalos() {
+      const simbolos = ['🌸', '🌹', '✨', '🌷', '💖'];
+      const cantidad = 25;
+      for (let i = 0; i < cantidad; i++) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        p.innerText = simbolos[Math.floor(Math.random() * simbolos.length)];
+        p.style.left = `${Math.random() * 100}vw`;
+        p.style.fontSize = `${Math.random() * 10 + 16}px`;
+        p.style.animationDuration = `${Math.random() * 5 + 6}s`;
+        p.style.animationDelay = `${Math.random() * 6}s`;
+        document.body.appendChild(p);
+      }
+    }
+
     function iniciarExperiencia() {
-      // Activa la música al dar clic en "Empezar ✨"
       audio.play().then(() => {
         textoMusica.innerText = "Música: ON";
       }).catch(err => {
-        console.log("Error al reproducir audio:", err);
+        console.log("Audio play error:", err);
       });
-
-      // Avanza a la siguiente pantalla
       nextScreen(1);
     }
 
@@ -374,6 +440,8 @@
       document.getElementById("screen" + num).classList.add("active");
       window.scrollTo(0, 0);
     }
+
+    crearLluviaPetalos();
   </script>
 </body>
 </html>
